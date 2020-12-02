@@ -20,6 +20,15 @@ class InputFile {
     });
     return array;
   }
+
+  getAsLines() {
+    let lines = [];
+    let content = this.getContent();
+    content.split(/\r?\n/).forEach(line => {
+      lines.push(line);
+    });
+    return lines;
+  }
 }
 
 module.exports = InputFile;
