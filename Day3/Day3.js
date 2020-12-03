@@ -3,6 +3,7 @@ var inputFile = require("../Common/InputFile.ts");
 class Surface {
 
     mSurface = [];
+    mLineSize;
 
     constructor() {
 
@@ -13,6 +14,7 @@ class Surface {
             if(line.length > 0)
               this.mSurface.push(line.split(''));
         });
+        this.mLineSize = this.mSurface[0].length;
     }
 
     countTrees(aX, aY) {
@@ -24,13 +26,10 @@ class Surface {
         {
             count += this.mSurface[y][x] === '#';
                         
-            let lineSize = this.mSurface[y].length;
-
             y += aY;
             x += aX;
 
-            if(x >= lineSize)
-                x = x - lineSize;
+            x = x % this.mLineSize;
         }
         return count;
     }
