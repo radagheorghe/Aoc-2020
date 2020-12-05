@@ -2,9 +2,9 @@ const FileSystem = require('fs');
 
 class InputFile {
     
-  mFilePath;
+  private mFilePath: String;
   
-  constructor(aFilePath) {
+  constructor(aFilePath: String) {
     this.mFilePath = aFilePath;
   }
   

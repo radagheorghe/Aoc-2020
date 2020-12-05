@@ -2,16 +2,16 @@ var inputFile = require("../Common/InputFile.ts");
 
 class Passport {
 
-    mByr;// (Birth Year)
-    mIyr;// (Issue Year)
-    mEyr;// (Expiration Year)
-    mHgt;// (Height)
-    mHcl;// (Hair Color)
-    mEcl;// (Eye Color)
-    mPid;// (Passport ID)
-    mCid;// (Country ID)
+    private mByr: String;// (Birth Year)
+    private mIyr: String;// (Issue Year)
+    private mEyr: String;// (Expiration Year)
+    private mHgt: String;// (Height)
+    private mHcl: String;// (Hair Color)
+    private mEcl: String;// (Eye Color)
+    private mPid: String;// (Passport ID)
+    private mCid: String;// (Country ID)
 
-    constructor(aInput){
+    constructor(aInput: String){
         aInput.split(/ /).forEach(passField => {
             let fields = passField.split(/:/);
             switch(fields[0]){
@@ -43,22 +43,22 @@ class Passport {
         });
     }
 
-    isByrValid() {
+    private isByrValid() {
         let byr = Number(this.mByr);
         return 1920 <= byr && byr <= 2002;
     }
 
-    isIYrValid() {
+    private isIYrValid() {
         let iyr = Number(this.mIyr);
         return 2010 <= iyr && iyr <= 2020;
     }
 
-    isEyrValid() {
+    private isEyrValid() {
         let eyr = Number(this.mEyr);
         return 2020 <= eyr && eyr <= 2030;
     }
 
-    isHgtValid() {
+    private isHgtValid() {
         let isCm = true;
         let unit = this.mHgt.indexOf("cm");
         if(unit < 0) {
@@ -75,48 +75,42 @@ class Passport {
         return false;
     }
 
-    isHclValid() {
-        if(this.mHcl[0] === '#') {
-            let valid = 0;
-            let hcl = this.mHcl.substr(1, this.mHcl.length);
-            for (let letter of hcl) {
-                valid += (0 <= Number(letter) && Number(letter) <= 9) || "abcdef".indexOf(letter) >= 0;
-            };
-            return valid === hcl.length;
-        }
-        return false;
+    private isHclValid() {
+        return this.mHcl.match(/#([a-f0-9]{6})/);
     }
 
-    isEclValid() {
-        return ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"].findIndex(elem => elem === this.mEcl) >= 0;
+    private isEclValid() {
+        return this.mEcl.match(/amb|blu|brn|gry|grn|hzl|oth/);
     }
 
-    isPidValid() {
-        let valid = 0;
-        for (let letter of this.mPid) {
-          valid += 0 <= Number(letter) && Number(letter) <= 9;
-        }
-        return valid === this.mPid.length && valid === 9;
+    private isPidValid() {
+        return this.mPid.match(/^[0-9]{9}$/);
     }
 
-    isValid() {
-        return this.mByr && this.isByrValid() &&
-               this.mIyr && this.isIYrValid() &&
-               this.mEyr && this.isEyrValid() &&
-               this.mHgt && this.isHgtValid() &&
-               this.mHcl && this.isHclValid() &&
-               this.mEcl && this.isEclValid() &&
-               this.mPid && this.isPidValid(); 
+    public hasAllFields() {
+        return this.mByr && this.mIyr && this.mEyr && this.mHgt && 
+               this.mHcl && this.mEcl && this.mPid; 
+    }
+
+    public isValid() {
+        return this.isByrValid() &&
+               this.isIYrValid() &&
+               this.isEyrValid() &&
+               this.isHgtValid() &&
+               this.isHclValid() &&
+               this.isEclValid() &&
+               this.isPidValid(); 
     }
 }
 
 class PassportManager {
 
-    mPassports = [];
+    private mPassports: Array<Passport>;
 
     constructor(aLines) {
+        this.mPassports = new Array<Passport>();
 
-        let passportInput = "";
+        let passportInput = String();
         aLines.forEach(line => {
             
             if(line.length > 0) {
@@ -131,10 +125,18 @@ class PassportManager {
         });
     }
 
-    countValid() {
+    public countHasAllFields() {
         let count = 0;
-        this.mPassports.forEach(passort => {
-            count += passort.isValid() ? 1 : 0;
+        this.mPassports.forEach(passport => {
+            count += passport.hasAllFields() ? 1 : 0;
+        });
+        return count;
+    }
+
+    public countValid() {
+        let count = 0;
+        this.mPassports.forEach(passport => {
+            count += passport.hasAllFields() && passport.isValid() ? 1 : 0;
         });
         return count;
     }
@@ -146,4 +148,5 @@ var input3 = new inputFile("./day4/input3.txt"); // valid
 var input4 = new inputFile("./day4/input4.txt"); // invalid
 
 var passports = new PassportManager(input.getAsLines());
+console.log(passports.countHasAllFields());
 console.log(passports.countValid());
