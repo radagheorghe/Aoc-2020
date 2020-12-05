@@ -12,8 +12,8 @@ class InputFile {
     return FileSystem.readFileSync(this.mFilePath, 'utf8');
   }
 
-  getAsArray() {
-    let array = [];
+  getAsArray():Array<number> {
+    let array = new Array<number>();
     let content = this.getContent();
     content.split(/\r?\n/).forEach(line => {
       array.push(Number(line));
