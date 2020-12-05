@@ -2,14 +2,14 @@ var inputFile = require("../Common/InputFile.ts");
 
 class Surface {
 
-    mSurface = [];
-    mLineSize;
+    private mSurface: Array<Array<string>>;
+    private mLineSize: number;
 
     constructor() {
-
+        this.mSurface = new Array<Array<string>>();
     }
 
-    loadMap(aLines) {
+    loadMap(aLines: Array<string>) {
         aLines.forEach(line => {
             if(line.length > 0)
               this.mSurface.push(line.split(''));
@@ -17,14 +17,14 @@ class Surface {
         this.mLineSize = this.mSurface[0].length;
     }
 
-    countTrees(aX, aY) {
+    countTrees(aX: number, aY: number) {
         let x = aX;
         let y = aY;
 
         let count = 0;
         while(y < this.mSurface.length)
         {
-            count += this.mSurface[y][x] === '#';
+            count += (this.mSurface[y][x] === '#') ? 1 : 0;
                         
             y += aY;
             x += aX;
