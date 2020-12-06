@@ -4,7 +4,7 @@ var input = new inputFile("./day1/input.txt");
 
 let array = input.getAsArray();
 
-function itterator(aArray: Array<number>, aFound: boolean, callback: (param: number) => void) {
+function iterator(aArray: Array<number>, aFound: boolean, callback: (param: number) => void) {
   for(let i = 0; i < aArray.length; i++) {
     if(aArray[i] != 0)
       callback(aArray[i]);
@@ -15,8 +15,8 @@ function itterator(aArray: Array<number>, aFound: boolean, callback: (param: num
 
 console.log("Part 1:");
 let found = false;
-itterator(array, found, (elem1)=>{
-  itterator(array, found, (elem2) => {
+iterator(array, found, (elem1)=> {
+  iterator(array, found, (elem2) => {
     if(elem1 + elem2 === 2020) {
       console.log(elem1 * elem2);
       found = true;
@@ -26,9 +26,9 @@ itterator(array, found, (elem1)=>{
 
 console.log("Part 2:");
 found = false;
-itterator(array, found, (elem1)=>{
-  itterator(array, found, (elem2) => {
-    itterator(array, found, (elem3) => {
+iterator(array, found, (elem1)=> {
+  iterator(array, found, (elem2) => {
+    iterator(array, found, (elem3) => {
       if(elem1 + elem2 + elem3 === 2020) {
         console.log(elem1 * elem2 * elem3);
         found = true;

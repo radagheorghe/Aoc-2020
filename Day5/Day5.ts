@@ -2,10 +2,10 @@ var inputFile = require("../Common/InputFile.ts");
 
 class Airplane {
 
-    private mBoardingSeats: Array<Number>;
+    private mBoardingSeats: Array<number>;
 
-    constructor(aLines: Array<String>){
-        this.mBoardingSeats = new Array<Number>();
+    constructor(aLines: Array<string>){
+        this.mBoardingSeats = new Array<number>();
 
         aLines.forEach(line => {
             if(line.length > 0)
@@ -13,13 +13,13 @@ class Airplane {
         });
     }
 
-    private decodeSeatId(aInput: String) {
+    private decodeSeatId(aInput: string) {
         let rowMin = 0;
         let rowMax = 127;
         let colMin = 0;
         let colMax = 7;
-        for(let i = 0; i < aInput.length; i++) {
-            switch(aInput[i]) {
+        for(let letter of aInput) {
+            switch(letter) {
                 case 'F':
                     rowMax = Math.floor((rowMin + rowMax) / 2);
                     break;
@@ -41,7 +41,7 @@ class Airplane {
         return Math.max.apply(Math, this.mBoardingSeats);
     }
 
-    public getFreeSeat() {
+    public getFreeSeatFirstVerion() {
         let rowMin = 0;
         let rowMax = 127;
         let diff = [];
@@ -61,6 +61,13 @@ class Airplane {
         }while(diff.length > 1);
         
         return diff[0];
+    }
+    
+    public getFreeSeat() {
+        let seats = this.mBoardingSeats.sort((a: number, b: number) => a - b);
+        for(let i = 0; i < seats.length; i++)
+            if(seats[i + 1] - seats[i] > 1)
+                return seats[i] + 1;
     }
 }
 
