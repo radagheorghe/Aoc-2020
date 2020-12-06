@@ -22,8 +22,8 @@ class Group {
     constructor(aInput: string) {
         this.mGroup = new Array<Person>();
 
-        aInput.split(/ /).forEach(group => {
-            this.mGroup.push(new Person(group));
+        aInput.split(/ /).forEach(questions => {
+            this.mGroup.push(new Person(questions));
         });
     }
 
