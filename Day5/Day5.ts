@@ -8,8 +8,7 @@ class Airplane {
         this.mBoardingSeats = new Array<number>();
 
         aLines.forEach(line => {
-            if(line.length > 0)
-                this.decodeSeatId(line);
+            this.decodeSeatId(line);
         });
     }
 

@@ -25,7 +25,8 @@ class InputFile {
     let lines = new Array<string>();
     let content = this.getContent();
     content.split(/\r?\n/).forEach(line => {
-      lines.push(line);
+      if(line.length > 0)
+        lines.push(line);
     });
     return lines;
   }
