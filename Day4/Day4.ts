@@ -110,18 +110,8 @@ class PassportManager {
     constructor(aLines) {
         this.mPassports = new Array<Passport>();
 
-        let passportInput = String();
         aLines.forEach(line => {
-            
-            if(line.length > 0) {
-                if(passportInput.length > 0)
-                    passportInput += " ";
-                passportInput += line;
-            }
-            else if(passportInput.length > 0) {
-                this.mPassports.push(new Passport(passportInput));
-                passportInput = "";
-            }
+            this.mPassports.push(new Passport(line));
         });
     }
 
@@ -147,6 +137,6 @@ var input2 = new inputFile("./day4/input2.txt");
 var input3 = new inputFile("./day4/input3.txt"); // valid
 var input4 = new inputFile("./day4/input4.txt"); // invalid
 
-var passports = new PassportManager(input.getAsLines());
+var passports = new PassportManager(input.getAsGroups());
 console.log(passports.countHasAllFields());
 console.log(passports.countValid());
