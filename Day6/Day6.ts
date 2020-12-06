@@ -63,18 +63,8 @@ class GroupManager {
     constructor(aLines: Array<string>) {
         this.mGroups = new Array<Group>();
 
-        let groupInput = "";
         aLines.forEach(line => {
-            
-            if(line.length > 0) {
-                if(groupInput.length > 0)
-                    groupInput += " ";
-                groupInput += line;
-            }
-            else if(groupInput.length > 0) {
-                this.mGroups.push(new Group(groupInput));
-                groupInput = "";
-            }
+             this.mGroups.push(new Group(line));
         });
     }
 
@@ -94,6 +84,6 @@ class GroupManager {
 var input = new inputFile("./day6/input.txt");
 var input2 = new inputFile("./day6/input2.txt");
 
-var peaple = new GroupManager(input.getAsLines());
-console.log(peaple.countYesQuestions());
-console.log(peaple.countCommonYesQuestions());
+var people = new GroupManager(input.getAsGroups());
+console.log(people.countYesQuestions());
+console.log(people.countCommonYesQuestions());

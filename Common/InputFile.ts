@@ -21,13 +21,32 @@ class InputFile {
     return array;
   }
 
-  getAsLines() {
-    let lines = [];
+  getAsLines():Array<string> {
+    let lines = new Array<string>();
     let content = this.getContent();
     content.split(/\r?\n/).forEach(line => {
       lines.push(line);
     });
     return lines;
+  }
+
+  getAsGroups():Array<string> {
+    let lineGroups = new Array<string>();
+
+    let groupInput = "";
+    this.getAsLines().forEach(line => {
+ 
+      if(line.length > 0) {
+          if(groupInput.length > 0)
+              groupInput += " ";
+          groupInput += line;
+      }
+      else if(groupInput.length > 0) {
+          lineGroups.push(groupInput);
+          groupInput = "";
+      }
+    });
+    return lineGroups;
   }
 }
 
