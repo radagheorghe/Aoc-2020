@@ -6,9 +6,7 @@ class Person {
 
     constructor(aInput: string){
         this.mQuestions = new Array<string>();
-        
-        for(let i = 0; i < aInput.length; i++)
-            this.mQuestions.push(aInput[i]);
+        this.mQuestions = aInput.split('');
     }
 
     getQuestions() {
