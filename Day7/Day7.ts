@@ -82,17 +82,17 @@ class BagManager {
   countShinyGold():number {
     let count = 0;
     let bags = this.mBags;
-    let toFind = ['shiny gold'];
+    let toCount = ['shiny gold'];
 
     while(true) {
-      let found = bags.filter(bag => bag.hasOneOf(toFind));
+      let found = bags.filter(bag => bag.hasOneOf(toCount));
 
       if(found.length === 0)
         break;
-
+      
       count += found.length;
       bags = bags.filter(bag => !found.includes(bag));
-      toFind = found.map(bag => {return bag.getColor()});
+      toCount = found.map(bag => {return bag.getColor()});
     }
 
     return count;

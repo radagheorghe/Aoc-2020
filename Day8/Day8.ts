@@ -5,20 +5,20 @@ class Instruction {
   private mCode: string;
   private mOffset: number;
 
-  constructor(aCode: string, aOffset:number) {
+  constructor(aCode:string, aOffset:number) {
     this.mCode = aCode;
     this.mOffset = aOffset;
   }
 
-  setCode(aCode: string) {
+  setCode(aCode:string) {
     this.mCode = aCode;
   }
 
-  getCode(): string{
+  getCode():string {
     return this.mCode;
   }
 
-  getOffset(): number{
+  getOffset():number {
     return this.mOffset;
   }
 }
@@ -26,9 +26,8 @@ class Instruction {
 class Computer {
 
   private mInstructions: Array<Instruction>;
-  private mExitCode: number;
-
-  constructor(aInput: Array<string>){
+  
+  constructor(aInput: Array<string>) {
     this.mInstructions = new Array<Instruction>();
 
     aInput.forEach(line => {
@@ -37,22 +36,22 @@ class Computer {
     });
   }
 
-  private execute(aInstructions: Array<Instruction>):number {
+  private execute():{exitCode: number, acc: number} {
     
     let acc = 0;
     let pointer = 0;
     let breakPoint = new Set<number>();
 
-    this.mExitCode = 0;
+    let exitCode = 0;
 
     while(true) {
-      let inst = aInstructions[pointer];
+      let inst = this.mInstructions[pointer];
       
-      if(pointer >= aInstructions.length)
+      if(pointer >= this.mInstructions.length)
         break;
 
       if(breakPoint.has(pointer)) {
-        this.mExitCode = -1;
+        exitCode = -1;
         break;
       }
       
@@ -71,39 +70,37 @@ class Computer {
           break;
       }
     }
-    return acc;
-  }
-
-  private getExitCode():number {
-    return this.mExitCode;
+    return {exitCode: exitCode, acc: acc};
   }
 
   executeProg():number {
-    return this.execute(this.mInstructions);
+    return this.execute().acc;
+  }
+
+  changeJmpOrNop(aInstruction: Instruction) {
+    switch(aInstruction.getCode()) {
+      case 'jmp':
+        aInstruction.setCode('nop');
+        return;
+      case 'nop':
+        aInstruction.setCode('jmp');
+        return;
+    }
   }
 
   findInstToTerminate():number {
-    for(let i = 0; i < this.mInstructions.length; i++) {
+    for(let inst of this.mInstructions) {
 
-      // copy new array
-      let instructions = this.mInstructions.map(inst => 
-        new Instruction(inst.getCode(), inst.getOffset()));
+      this.changeJmpOrNop(inst);
+      
+      let ret = this.execute();
+      if(ret.exitCode != -1) {
+        return ret.acc;
+      }
 
-      switch(instructions[i].getCode()) {
-        case 'jmp':
-          instructions[i].setCode('nop');
-          break;
-        case 'nop':
-          instructions[i].setCode('jmp');
-          break;
-        default:
-          continue;
-      }
-      let acc = this.execute(instructions);
-      if(this.getExitCode() != -1) {
-        return acc;
-      }
-    }
+      // revert changes in program
+      this.changeJmpOrNop(inst);
+    };
   }
 }
 

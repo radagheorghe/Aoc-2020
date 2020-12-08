@@ -12,23 +12,12 @@ class InputFile {
     return FileSystem.readFileSync(this.mFilePath, 'utf8');
   }
 
-  getAsArray():Array<number> {
-    let array = new Array<number>();
-    let content = this.getContent();
-    content.split(/\r?\n/).forEach(line => {
-      array.push(Number(line));
-    });
-    return array;
+  getAsLines():Array<string> {
+    return this.getContent().split(/\r\n|\r|\n/).filter(line => line.length > 0);
   }
 
-  getAsLines():Array<string> {
-    let lines = new Array<string>();
-    let content = this.getContent();
-    content.split(/\r?\n/).forEach(line => {
-      if(line.length > 0)
-        lines.push(line);
-    });
-    return lines;
+  getAsArray():Array<number> {
+    return this.getAsLines().map(line => Number(line));
   }
 
   getAsGroups():Array<string> {
