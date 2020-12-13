@@ -1,15 +1,16 @@
-const FileSystem = require('fs');
+
+import { readFileSync } from 'fs'
 
 export class InputFile {
     
-  private mFilePath: String;
+  private mFilePath: string;
   
-  constructor(aFilePath: String) {
+  constructor(aFilePath: string) {
     this.mFilePath = aFilePath;
   }
   
   getContent() {
-    return FileSystem.readFileSync(this.mFilePath, 'utf8');
+    return readFileSync(this.mFilePath, 'utf8');
   }
 
   getAsLines():Array<string> {
