@@ -28,6 +28,7 @@ class AddapterArray {
       // for pt1 always get the minimum rated
       let adapter = compatible.sort((a, b) => b.mRate - a.mRate).pop();
       
+      // for pt2 calc all combinations
       if(allCompatible.length > 1) {
         combinations.push(allCompatible);
       }
@@ -36,6 +37,7 @@ class AddapterArray {
         this.mAllArangements *= this.getCombinations(combinations);
         combinations.length = 0;
       }
+
       ratedAdapters.push(adapter);
       compatible = this.getCompatibleAdapters(aInput, adapter.mJolts);
     }

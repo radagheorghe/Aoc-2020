@@ -53,16 +53,16 @@ class ShuttleSearch {
     let start = 1;
     while(true) {
 
-      let count = start;
+      let count = start; // how many busses are sincronized
       
       for(let i = start; i < this.mBusses.length; i++) {
         let timeStamp = t + this.mBusses[i].mOffset;
         
-        if(timeStamp % this.mBusses[i].mBuss == 0) {
-          count ++;
+        if(timeStamp % this.mBusses[i].mBuss == 0) { // sicronizes at this timestamp
+          count ++; // one more buss that is sincronized
           
-          if(count - i == 1) {
-            if(rep.has(this.mBusses[i].mBuss)) {
+          if(count - i == 1) { // is consecutive with previews ones
+            if(rep.has(this.mBusses[i].mBuss)) { 
               step = t - rep.get(this.mBusses[i].mBuss);
               start = count;
               break;
@@ -73,7 +73,7 @@ class ShuttleSearch {
         }
       }
       
-      this.printTimeStamp(t);
+      //this.printTimeStamp(t);
 
       if(count == this.mBusses.length)
         return t;
