@@ -1,4 +1,4 @@
-var inputFile = require("../Common/InputFile.ts");
+import { InputFile } from '../Common/InputFile'
 
 type Adapter = {
   mJolts: number;
@@ -98,9 +98,9 @@ class AddapterArray {
   }
 }
 
-var input = new inputFile("./day10/input.txt");
-var input2 = new inputFile("./day10/input2.txt");
-var input3 = new inputFile("./day10/input3.txt");
+var input = new InputFile("./day10/input.txt");
+var input2 = new InputFile("./day10/input2.txt");
+var input3 = new InputFile("./day10/input3.txt");
 
 var adapter = new AddapterArray(input2.getAsArray());
 console.log(adapter.getChainRates());

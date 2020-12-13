@@ -1,4 +1,4 @@
-var inputFile = require("../Common/InputFile.ts");
+import { InputFile } from '../Common/InputFile'
 
 class Surface {
 
@@ -35,8 +35,8 @@ class Surface {
     }
 }
 
-var input = new inputFile("./day3/input.txt");
-var input2 = new inputFile("./day3/input2.txt");
+var input = new InputFile("./day3/input.txt");
+var input2 = new InputFile("./day3/input2.txt");
 
 var surface = new Surface();
 surface.loadMap(input.getAsLines());

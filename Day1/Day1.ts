@@ -1,6 +1,6 @@
-var inputFile = require("../Common/InputFile.ts");
+import { InputFile } from '../Common/InputFile'
 
-var input = new inputFile("./day1/input.txt");
+var input = new InputFile("./day1/input.txt");
 
 let array = input.getAsArray();
 

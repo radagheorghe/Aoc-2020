@@ -1,4 +1,4 @@
-var inputFile = require("../Common/InputFile.ts");
+import { InputFile } from '../Common/InputFile'
 
 class Airplane {
 
@@ -70,8 +70,8 @@ class Airplane {
     }
 }
 
-var input = new inputFile("./day5/input.txt");
-var input2 = new inputFile("./day5/input2.txt");
+var input = new InputFile("./day5/input.txt");
+var input2 = new InputFile("./day5/input2.txt");
 
 var airPlane = new Airplane(input.getAsLines());
 console.log(airPlane.getMaxSeat());

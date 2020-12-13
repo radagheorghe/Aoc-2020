@@ -1,4 +1,4 @@
-var inputFile = require("../Common/InputFile.ts");
+import { InputFile } from '../Common/InputFile'
 
 class Person {
 
@@ -79,8 +79,8 @@ class GroupManager {
     }
 }
 
-var input = new inputFile("./day6/input.txt");
-var input2 = new inputFile("./day6/input2.txt");
+var input = new InputFile("./day6/input.txt");
+var input2 = new InputFile("./day6/input2.txt");
 
 var people = new GroupManager(input.getAsGroups());
 console.log(people.countYesQuestions());

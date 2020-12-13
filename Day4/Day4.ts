@@ -1,4 +1,4 @@
-var inputFile = require("../Common/InputFile.ts");
+import { InputFile } from '../Common/InputFile'
 
 class Passport {
 
@@ -132,10 +132,10 @@ class PassportManager {
     }
 }
 
-var input = new inputFile("./day4/input.txt");
-var input2 = new inputFile("./day4/input2.txt");
-var input3 = new inputFile("./day4/input3.txt"); // valid
-var input4 = new inputFile("./day4/input4.txt"); // invalid
+var input = new InputFile("./day4/input.txt");
+var input2 = new InputFile("./day4/input2.txt");
+var input3 = new InputFile("./day4/input3.txt"); // valid
+var input4 = new InputFile("./day4/input4.txt"); // invalid
 
 var passports = new PassportManager(input.getAsGroups());
 console.log(passports.countHasAllFields());

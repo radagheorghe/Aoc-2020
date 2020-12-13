@@ -1,4 +1,4 @@
-var inputFile = require("../Common/InputFile.ts");
+import { InputFile } from '../Common/InputFile'
 
 class XMAS {
 
@@ -52,8 +52,8 @@ class XMAS {
   }
 }
 
-var input = new inputFile("./day9/input.txt");
-var input2 = new inputFile("./day9/input2.txt");
+var input = new InputFile("./day9/input.txt");
+var input2 = new InputFile("./day9/input2.txt");
 
 var xmas = new XMAS(input.getAsArray(), 25);
 var xmas2 = new XMAS(input2.getAsArray(), 5);

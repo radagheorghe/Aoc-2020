@@ -1,4 +1,4 @@
-var inputFile = require("../Common/InputFile.ts");
+import { InputFile } from '../Common/InputFile'
 
 class Instruction {
 
@@ -104,8 +104,8 @@ class Computer {
   }
 }
 
-var input = new inputFile("./day8/input.txt");
-var input2 = new inputFile("./day8/input2.txt");
+var input = new InputFile("./day8/input.txt");
+var input2 = new InputFile("./day8/input2.txt");
 
 var comp = new Computer(input.getAsLines());
 console.log(comp.executeProg());

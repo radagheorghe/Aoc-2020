@@ -1,4 +1,4 @@
-var inputFile = require("../Common/InputFile.ts");
+import { InputFile } from '../Common/InputFile'
 
 class SeatingSystem { 
 
@@ -146,8 +146,8 @@ class SeatingSystem {
   }
 }
 
-var input = new inputFile("./day11/input.txt");
-var input2 = new inputFile("./day11/input2.txt");
+var input = new InputFile("./day11/input.txt");
+var input2 = new InputFile("./day11/input2.txt");
 
 let seats = new SeatingSystem(input.getAsLines());
 console.log(seats.run());

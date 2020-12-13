@@ -1,4 +1,4 @@
-var inputFile = require("../Common/InputFile.ts");
+import { InputFile } from '../Common/InputFile'
 
 type Policy = {min: number, max: number, letter: string};
 
@@ -81,8 +81,8 @@ class PasswordManager {
     }
 }
 
-var input = new inputFile("./day2/input.txt");
-var input2 = new inputFile("./day2/input2.txt");
+var input = new InputFile("./day2/input.txt");
+var input2 = new InputFile("./day2/input2.txt");
 
 var passwords = new PasswordManager();
 passwords.parse(input.getAsLines());
