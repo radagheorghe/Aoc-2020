@@ -1,6 +1,6 @@
 const FileSystem = require('fs');
 
-class InputFile {
+export class InputFile {
     
   private mFilePath: String;
   
@@ -40,4 +40,3 @@ class InputFile {
   }
 }
 
-module.exports = InputFile;
