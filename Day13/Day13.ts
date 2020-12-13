@@ -71,6 +71,7 @@ class ShuttleSearch {
               rep.set(this.mBusses[i].mBuss, t);
           }
         }
+        else break;
       }
       
       //this.printTimeStamp(t);
@@ -100,4 +101,8 @@ var input2 = new InputFile("./day13/input2.txt");
 var input3 = new InputFile("./day13/input3.txt");
 
 let shuttle = new ShuttleSearch(input.getAsLines());
+let time = new Date().getTime();
 console.log(shuttle.simulateBusses2());
+let time1 = new Date().getTime();
+let finishTime = (time1 - time) / 1000;
+console.log('time: ' + finishTime + 'sec');
