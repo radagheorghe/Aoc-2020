@@ -2,12 +2,8 @@
 const bZero = BigInt(0);
 const bOne = BigInt(1);
 
-export function last<T>(aArray: Array<T>): T {
-  return aArray[aArray.length - 1];
-}
-
-export function preLast<T>(aArray: Array<T>): T {
-  return aArray[aArray.length - 2];
+export function last<T>(aArray: Array<T>, aPre: number = 0): T {
+  return aArray[aArray.length - aPre - 1];
 }
 
 export function lastIndex<T>(aArray: Array<T>): number {

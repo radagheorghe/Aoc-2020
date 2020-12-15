@@ -1,4 +1,4 @@
-import { last, preLast } from '../Common/Util'
+import { last } from '../Common/Util'
 
 class TwoPair {
 
