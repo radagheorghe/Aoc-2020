@@ -6,6 +6,18 @@ export function last<T>(aArray: Array<T>): T {
   return aArray[aArray.length - 1];
 }
 
+export function preLast<T>(aArray: Array<T>): T {
+  return aArray[aArray.length - 2];
+}
+
+export function lastIndex<T>(aArray: Array<T>): number {
+  return aArray.length - 1;
+}
+
+export function isEmpty<T>(aArray: Array<T>): boolean {
+  return aArray.length == 0;
+}
+
 export function setBitByPos(aNumber: bigint, aBit: number): bigint {
   aNumber |= bOne << BigInt(aBit);
   return aNumber;
