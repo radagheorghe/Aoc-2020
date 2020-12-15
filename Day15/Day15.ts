@@ -1,4 +1,3 @@
-import { last } from '../Common/Util'
 
 class TwoPair {
 
@@ -49,26 +48,28 @@ class MemoryGame {
     let turn = 1;
     this.mFirstSpoken.forEach(it => { alreadySpoken.set(it, new TwoPair(turn++)) });
     
-    let lastSpoken = last(this.mFirstSpoken);
+    const updateSpoken = (aSpoken: number) => {
+      let found = alreadySpoken.get(aSpoken);
 
+      if(found) 
+        found.push(turn);
+      else
+        alreadySpoken.set(aSpoken, new TwoPair(turn));
+    }
+
+    let lastSpoken = 0;
+    updateSpoken(lastSpoken);
+    turn ++;
+    
     while(turn <= aEnd) {
       
-      let previews: TwoPair;
-
-      if(turn > this.mFirstSpoken.length + 1) {
-        previews = alreadySpoken.get(lastSpoken);
-      }
+      let previews: TwoPair = alreadySpoken.get(lastSpoken);
 
       let spoken = 0;
       if(previews && previews.hasTwo())
         spoken = previews.second() - previews.first();
 
-      let found = alreadySpoken.get(spoken);
-
-      if(found) 
-        found.push(turn);
-      else
-        alreadySpoken.set(spoken, new TwoPair(turn));
+      updateSpoken(spoken);
 
       lastSpoken = spoken;
 
