@@ -57,8 +57,8 @@ class MemoryGame {
         alreadySpoken.set(aSpoken, new TwoPair(turn));
     }
 
+    updateSpoken(0);
     let lastSpoken = 0;
-    updateSpoken(lastSpoken);
     turn ++;
     
     while(turn <= aEnd) {
