@@ -12,11 +12,11 @@ class MemoryGame {
 
   public start(aEnd: number): number {
 
-    let map = new Map<number, Array<number>>();
+    let alreadySpoken = new Map<number, Array<number>>();
 
     let turn = 1;
     this.mFirstSpoken.forEach(it => {
-      map.set(it, [turn++]);
+      alreadySpoken.set(it, [turn++]);
     });
     
     let lastSpoken = last(this.mFirstSpoken);
@@ -26,18 +26,19 @@ class MemoryGame {
       let previews: Array<number> = [];
 
       if(turn > this.mFirstSpoken.length + 1) {
-        previews = map.get(lastSpoken);
+        previews = alreadySpoken.get(lastSpoken);
       }
 
       let spoken = 0;
       if(previews.length > 1)
         spoken = last(previews) - preLast(previews);
 
-      let found = map.get(spoken);
+      let found = alreadySpoken.get(spoken);
+      
       if(found)
         found.push(turn);
       else
-        map.set(spoken, [turn]);
+        alreadySpoken.set(spoken, [turn]);
 
       lastSpoken = spoken;
 
