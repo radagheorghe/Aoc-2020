@@ -1,44 +1,74 @@
 import { last, preLast } from '../Common/Util'
 
+class TwoPair {
+
+  private mFirst: number;
+  private mSecond: number;
+
+  constructor(aFirst: number = undefined, aSecond: number= undefined) {
+    this.mFirst = aFirst;
+    this.mSecond = aSecond;
+  }
+
+  public hasTwo(): boolean {
+    return this.mFirst && this.mSecond ? true : false;
+  }
+
+  public push(aNumber: number) {
+    if(this.mSecond) {
+      this.mFirst = this.mSecond;
+      this.mSecond = aNumber;
+    }
+    else if(this.mFirst)
+      this.mSecond = aNumber;
+    else
+      this.mFirst = aNumber;
+  }
+
+  public first(): number {
+    return this.mFirst;
+  }
+
+  public second(): number {
+    return this.mSecond;
+  }
+}
+
 class MemoryGame {
 
   private mFirstSpoken: Array<number>;
   
   constructor(aInput: string) {
-    this.mFirstSpoken = new Array<number>();
-    
     this.mFirstSpoken = aInput.split(',').map(it => Number(it));
   }
 
   public start(aEnd: number): number {
 
-    let alreadySpoken = new Map<number, Array<number>>();
+    let alreadySpoken = new Map<number, TwoPair>();
 
     let turn = 1;
-    this.mFirstSpoken.forEach(it => {
-      alreadySpoken.set(it, [turn++]);
-    });
+    this.mFirstSpoken.forEach(it => { alreadySpoken.set(it, new TwoPair(turn++)) });
     
     let lastSpoken = last(this.mFirstSpoken);
 
     while(turn <= aEnd) {
       
-      let previews: Array<number> = [];
+      let previews: TwoPair;
 
       if(turn > this.mFirstSpoken.length + 1) {
         previews = alreadySpoken.get(lastSpoken);
       }
 
       let spoken = 0;
-      if(previews.length > 1)
-        spoken = last(previews) - preLast(previews);
+      if(previews && previews.hasTwo())
+        spoken = previews.second() - previews.first();
 
       let found = alreadySpoken.get(spoken);
-      
-      if(found)
+
+      if(found) 
         found.push(turn);
       else
-        alreadySpoken.set(spoken, [turn]);
+        alreadySpoken.set(spoken, new TwoPair(turn));
 
       lastSpoken = spoken;
 
