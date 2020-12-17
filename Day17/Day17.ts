@@ -42,11 +42,6 @@ class ConwayCubes {
     return undefined;
   }
 
-  private addUnique(aCubes: Array<Cube>, aCube: Cube) {
-    if(!this.hasCube(aCubes, aCube))
-      aCubes.push(aCube);
-  }
-
   private getCubeNeighbors(aCube: Cube): Array<Cube> {
     let neighbors = new Array<Cube>();
 
@@ -57,7 +52,7 @@ class ConwayCubes {
             if(x == 0 && y == 0 && z == 0 && w == 0) 
               continue;
 
-            this.addUnique(neighbors, new Cube(aCube.mX + x, aCube.mY + y, aCube.mZ + z, aCube.mW + w));
+            neighbors.push(new Cube(aCube.mX + x, aCube.mY + y, aCube.mZ + z, aCube.mW + w));
           }
 
     return neighbors;
@@ -91,8 +86,8 @@ class ConwayCubes {
         let neighborsAlt = this.getCubeNeighbors(it);
 
         let active = neighborsAlt.filter(it => this.isActive(it));
-        if(active.length === 3)
-          this.addUnique(toActive, it);
+        if(active.length === 3 && !this.hasCube(toActive, it))
+          toActive.push(it);
       })
     })
 
