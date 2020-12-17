@@ -21,15 +21,15 @@ export class InputFile {
     return this.getAsLines().map(line => Number(line));
   }
 
-  getAsGroups():Array<string> {
+  getAsGroups(aSeparator: string = ' '):Array<string> {
     let lineGroups = new Array<string>();
 
     let groupInput = "";
-    this.getAsLines().forEach(line => {
+    this.getContent().split(/\r\n|\r|\n/).forEach(line => {
  
       if(line.length > 0) {
           if(groupInput.length > 0)
-              groupInput += " ";
+              groupInput += aSeparator;
           groupInput += line;
       }
       else if(groupInput.length > 0) {
@@ -37,6 +37,9 @@ export class InputFile {
           groupInput = "";
       }
     });
+    if(groupInput.length > 0) 
+      lineGroups.push(groupInput);
+
     return lineGroups;
   }
 }
